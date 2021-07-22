@@ -1,5 +1,7 @@
 {{ if .Values.ingress.enabled }}
 {{- if .Values.ingress.tlsEnabled }}
+{{- $fullName := include "webapp.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
