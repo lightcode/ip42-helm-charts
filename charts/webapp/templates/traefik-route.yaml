@@ -22,6 +22,6 @@ spec:
           port: {{ $svcPort }}
 {{- if .Values.ingress.tlsEnabled }}
       middlewares:
-        - name: {{ $fullName }}-tls
+        - name: {{ $fullName }}-redirect-https
 {{- end -}}
 {{ end }}

@@ -3,7 +3,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-redirect-https
   labels:
     {{- include "webapp.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
