@@ -1,0 +1,17 @@
+{{ if .Values.ingress.enabled }}
+{{- if .Values.ingress.tlsEnabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "webapp.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  redirectScheme:
+    scheme: https
+{{- end -}}
+{{ end }}

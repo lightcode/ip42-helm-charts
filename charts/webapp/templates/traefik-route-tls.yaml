@@ -1,0 +1,27 @@
+{{ if .Values.ingress.enabled }}
+{{- if .Values.ingress.tlsEnabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ $fullName }}-tls
+  labels:
+    {{- include "webapp.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  entryPoints:
+    - https
+  routes:
+    - match: "Host(`{{ .Values.ingress.host }}`)"
+      kind: Rule
+      services:
+        - name: {{ $fullName }}
+          port: {{ $svcPort }}
+  tls:
+    certResolver: main
+    domains:
+      - main: "{{ .Values.ingress.host }}"
+{{- end -}}
+{{ end }}
