@@ -1,7 +1,8 @@
+{{- $fullName := include "webapp.fullname" . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "webapp.fullname" . }}
+  name: {{ $fullName }}
   labels:
     {{- include "webapp.labels" . | nindent 4 }}
 spec:
@@ -51,6 +52,21 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.persistentVolumes }}
+          volumeMounts:
+            {{- range $pvc := .Values.persistentVolumes }}
+            - name: {{ $pvc.name }}
+              mountPath: {{ $pvc.mountPath }}
+            {{- end }}
+          {{- end }}
+      {{- if .Values.persistentVolumes }}
+      volumes:
+      {{- range $pvc := .Values.persistentVolumes }}
+        - name: {{ $pvc.name }}
+          persistentVolumeClaim:
+            claimName: {{ $fullName }}-{{ $pvc.name }}
+      {{- end }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

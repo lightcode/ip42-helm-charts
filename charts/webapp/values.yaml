@@ -38,6 +38,10 @@ securityContext: {}
 
 env: []
 
+persistentVolumes: []
+  #- name: name-of-the-pvc
+  #  mountPath: /path/in/the/container
+
 service:
   type: ClusterIP
   port: 80
