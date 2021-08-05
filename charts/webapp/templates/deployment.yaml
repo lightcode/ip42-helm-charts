@@ -67,7 +67,7 @@ spec:
       volumes:
         {{- range $vol := .Values.emptyDirs }}
         - name: {{ $vol.name }}
-          empty: {}
+          emptyDir: {}
         {{- end }}
       {{- range $pvc := .Values.persistentVolumes }}
         - name: {{ $pvc.name }}
