@@ -52,15 +52,23 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.persistentVolumes }}
+          {{- if or .Values.persistentVolumes .Values.emptyDirs }}
           volumeMounts:
+            {{- range $vol := .Values.emptyDirs }}
+            - name: {{ $vol.name }}
+              mountPath: {{ $vol.mountPath }}
+            {{- end }}
             {{- range $pvc := .Values.persistentVolumes }}
             - name: {{ $pvc.name }}
               mountPath: {{ $pvc.mountPath }}
             {{- end }}
           {{- end }}
-      {{- if .Values.persistentVolumes }}
+      {{- if or .Values.persistentVolumes .Values.empty }}
       volumes:
+        {{- range $vol := .Values.emptyDirs }}
+        - name: {{ $vol.name }}
+          empty: {}
+        {{- end }}
       {{- range $pvc := .Values.persistentVolumes }}
         - name: {{ $pvc.name }}
           persistentVolumeClaim:
