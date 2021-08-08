@@ -55,27 +55,28 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if or .Values.persistentVolumes .Values.emptyDirs }}
+          {{- if or .Values.volumes .Values.tmpfs }}
           volumeMounts:
-            {{- range $vol := .Values.emptyDirs }}
-            - name: {{ $vol.name }}
-              mountPath: {{ $vol.mountPath }}
+            {{- range $name, $prop := .Values.tmpfs }}
+            - name: {{ $name }}
+              mountPath: {{ $prop.mountPath }}
             {{- end }}
-            {{- range $pvc := .Values.persistentVolumes }}
-            - name: {{ $pvc.name }}
-              mountPath: {{ $pvc.mountPath }}
+            {{- range $name, $prop := .Values.volumes }}
+            - name: {{ $name }}
+              mountPath: {{ $prop.mountPath }}
             {{- end }}
           {{- end }}
-      {{- if or .Values.persistentVolumes .Values.empty }}
+      {{- if or .Values.volumes .Values.empty }}
       volumes:
-        {{- range $vol := .Values.emptyDirs }}
-        - name: {{ $vol.name }}
-          emptyDir: {}
+        {{- range $name, $prop := .Values.tmpfs }}
+        - name: {{ $name }}
+          emptyDir:
+            medium: Memory
         {{- end }}
-      {{- range $pvc := .Values.persistentVolumes }}
-        - name: {{ $pvc.name }}
+      {{- range $name, $prop := .Values.volumes }}
+        - name: {{ $name }}
           persistentVolumeClaim:
-            claimName: {{ $fullName }}-{{ $pvc.name }}
+            claimName: {{ $fullName }}-{{ $name }}
       {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}

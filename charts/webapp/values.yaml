@@ -40,16 +40,15 @@ securityContext: {}
 
 env: []
 
-# Volumes with some persistence.
-# WRNING: data might be erased when the chart is removed depending on the retain policy.
-persistentVolumes: []
-  #- name: name-of-the-pvc
-  #  mountPath: /path/in/the/container
+# Semi-persistent volumes. They will be deleted when the helm chart is deleted.
+volumes: {}
+  # <vol-name>
+  #   mountPath: /path/in/the/container
 
 # List of temporary folders
-emptyDirs: []
-  #- name: name-of-the-emptyDir
-  #  mountPath: /path/in/the/container
+tmpfs: {}
+  # <vol-name>:
+  #   mountPath: /path/in/the/container
 
 service:
   type: ClusterIP
