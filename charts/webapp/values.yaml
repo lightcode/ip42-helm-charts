@@ -40,6 +40,16 @@ securityContext: {}
 
 env: []
 
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
 # Semi-persistent volumes. They will be deleted when the helm chart is deleted.
 volumes: {}
   # <vol-name>
