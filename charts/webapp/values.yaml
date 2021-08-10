@@ -40,6 +40,11 @@ securityContext: {}
 
 env: []
 
+ports:
+  - name: http
+    containerPort: 80
+    protocol: TCP
+
 livenessProbe:
   httpGet:
     path: /
