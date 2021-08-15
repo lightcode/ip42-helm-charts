@@ -33,6 +33,24 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if and .Values.volumes .Values.podSecurityContext.fsGroup }}
+      initContainers:
+        - name: setup-volumes
+          image: "busybox:latest"
+          command:
+            - sh
+            - -c
+            - |
+              {{- $fsGroup := .Values.podSecurityContext.fsGroup }}
+              {{- range $name, $prop := .Values.volumes }}
+              chgrp {{ $fsGroup }} {{ $prop.mountPath }}
+              {{- end }}
+          volumeMounts:
+            {{- range $name, $prop := .Values.volumes }}
+            - name: {{ $name }}
+              mountPath: {{ $prop.mountPath }}
+            {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
