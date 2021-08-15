@@ -39,11 +39,12 @@ spec:
           image: "busybox:latest"
           command:
             - sh
-            - -c
+            - -ec
             - |
               {{- $fsGroup := .Values.podSecurityContext.fsGroup }}
               {{- range $name, $prop := .Values.volumes }}
-              chgrp {{ $fsGroup }} {{ $prop.mountPath }}
+              chgrp {{ $fsGroup }} {{ $prop.mountPath | quote }}
+              chmod 0770 {{ $prop.mountPath | quote }}
               {{- end }}
           volumeMounts:
             {{- range $name, $prop := .Values.volumes }}
