@@ -25,6 +25,8 @@ serviceAccount:
 
 automountServiceAccountToken: false
 
+podAdditionalLabels: {}
+
 podAnnotations: {}
 
 podSecurityContext: {}

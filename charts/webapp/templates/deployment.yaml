@@ -20,6 +20,9 @@ spec:
       {{- end }}
       labels:
         {{- include "webapp.selectorLabels" . | nindent 8 }}
+        {{- if .Values.podAdditionalLabels }}
+        {{- toYaml .Values.podAdditionalLabels | nindent 8 }}
+        {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
