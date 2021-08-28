@@ -93,6 +93,10 @@ spec:
             - name: {{ $name }}
               mountPath: {{ $prop.mountPath }}
             {{- end }}
+            {{- range $name, $prop := .Values.hostPath }}
+            - name: {{ $name }}
+              mountPath: {{ $prop.mountPath }}
+            {{- end }}
           {{- end }}
       {{- if or .Values.volumes .Values.empty }}
       volumes:
@@ -105,5 +109,11 @@ spec:
         - name: {{ $name }}
           persistentVolumeClaim:
             claimName: {{ $fullName }}-{{ $name }}
+      {{- end }}
+      {{- range $name, $prop := .Values.hostPath }}
+        - name: {{ $name }}
+          hostPath:
+            path: {{ $prop.path }}
+            type: Directory
       {{- end }}
       {{- end }}
