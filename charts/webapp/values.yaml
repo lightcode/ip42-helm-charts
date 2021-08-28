@@ -67,6 +67,12 @@ tmpfs: {}
   # <vol-name>:
   #   mountPath: /path/in/the/container
 
+# List of hostPath folders
+hostPath: {}
+  # <vol-name>:
+  #   mountPath: /path/in/the/container
+  #   path: /path/on/the/host
+
 service:
   type: ClusterIP
   port: 80

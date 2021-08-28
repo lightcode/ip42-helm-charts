@@ -83,7 +83,7 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if or .Values.volumes .Values.tmpfs }}
+          {{- if or .Values.volumes .Values.tmpfs .Values.hostPath }}
           volumeMounts:
             {{- range $name, $prop := .Values.tmpfs }}
             - name: {{ $name }}
@@ -98,13 +98,13 @@ spec:
               mountPath: {{ $prop.mountPath }}
             {{- end }}
           {{- end }}
-      {{- if or .Values.volumes .Values.empty }}
+      {{- if or .Values.volumes .Values.empty .Values.hostPath }}
       volumes:
-        {{- range $name, $prop := .Values.tmpfs }}
+      {{- range $name, $prop := .Values.tmpfs }}
         - name: {{ $name }}
           emptyDir:
             medium: Memory
-        {{- end }}
+      {{- end }}
       {{- range $name, $prop := .Values.volumes }}
         - name: {{ $name }}
           persistentVolumeClaim:
