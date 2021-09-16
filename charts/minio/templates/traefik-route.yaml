@@ -1,0 +1,35 @@
+{{ if .Values.ingress.enabled }}
+{{- $fullName := include "minio.fullname" . -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "minio.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  entryPoints:
+    - http
+  routes:
+    - match: "Host(`{{ .Values.ingress.apiHost }}`)"
+      kind: Rule
+      services:
+        - name: {{ $fullName }}
+          port: {{ .Values.minio.apiPort }}
+{{- if .Values.ingress.tlsEnabled }}
+      middlewares:
+        - name: {{ $fullName }}-redirect-https
+{{- end }}
+    - match: "Host(`{{ .Values.ingress.consoleHost }}`)"
+      kind: Rule
+      services:
+        - name: {{ $fullName }}
+          port: {{ .Values.minio.consolePort }}
+{{- if .Values.ingress.tlsEnabled }}
+      middlewares:
+        - name: {{ $fullName }}-redirect-https
+{{- end -}}
+{{ end }}

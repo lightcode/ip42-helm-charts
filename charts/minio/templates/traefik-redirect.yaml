@@ -1,0 +1,18 @@
+{{ if .Values.ingress.enabled }}
+{{- if .Values.ingress.tlsEnabled }}
+{{- $fullName := include "minio.fullname" . -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ $fullName }}-redirect-https
+  labels:
+    {{- include "minio.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  redirectScheme:
+    scheme: https
+{{- end -}}
+{{ end }}
