@@ -84,7 +84,7 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.lifecycle }}
-          resources:
+          lifecycle:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- if or .Values.volumes .Values.tmpfs .Values.hostPath }}
