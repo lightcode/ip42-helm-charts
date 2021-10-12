@@ -94,6 +94,9 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# Change lifecycle of the main container in deployment
+lifecycle: {}
+
 autoscaling:
   enabled: false
   minReplicas: 1

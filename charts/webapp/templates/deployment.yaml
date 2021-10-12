@@ -83,6 +83,10 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.lifecycle }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- if or .Values.volumes .Values.tmpfs .Values.hostPath }}
           volumeMounts:
             {{- range $name, $prop := .Values.tmpfs }}
