@@ -21,6 +21,11 @@ spec:
       services:
         - name: {{ $fullName }}
           port: {{ $svcPort }}
+      {{- with .Values.ingress.middlewares }}
+      middlewares:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
   tls:
     certResolver: main
     domains:
