@@ -102,7 +102,7 @@ spec:
               mountPath: {{ $prop.mountPath }}
             {{- end }}
           {{- end }}
-      {{- if or .Values.volumes .Values.empty .Values.hostPath }}
+      {{- if or .Values.volumes .Values.tmpfs .Values.hostPath }}
       volumes:
       {{- range $name, $prop := .Values.tmpfs }}
         - name: {{ $name }}
