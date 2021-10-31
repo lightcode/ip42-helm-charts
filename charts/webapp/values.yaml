@@ -80,7 +80,9 @@ service:
 ingress:
   enabled: false
   tlsEnabled: false
+  match: ~
   host: ""
+  sans: []
   middlewares: []
 
 resources: {}

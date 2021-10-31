@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - http
   routes:
-    - match: "Host(`{{ .Values.ingress.host }}`)"
+    - match: {{ .Values.ingress.match | default (printf "Host(`%s`)" .Values.ingress.host) | quote }}
       kind: Rule
       services:
         - name: {{ $fullName }}

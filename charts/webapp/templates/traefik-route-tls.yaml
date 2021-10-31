@@ -16,7 +16,7 @@ spec:
   entryPoints:
     - https
   routes:
-    - match: "Host(`{{ .Values.ingress.host }}`)"
+    - match: {{ .Values.ingress.match | default (printf "Host(`%s`)" .Values.ingress.host) | quote }}
       kind: Rule
       services:
         - name: {{ $fullName }}
@@ -25,10 +25,13 @@ spec:
       middlewares:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-
   tls:
     certResolver: main
     domains:
       - main: "{{ .Values.ingress.host }}"
+        {{- with .Values.ingress.sans }}
+        sans:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
 {{- end -}}
 {{ end }}
