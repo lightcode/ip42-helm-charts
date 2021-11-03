@@ -2,12 +2,22 @@ apiVersion: v1
 entries:
   minio:
   - apiVersion: v2
-    created: "2021-11-03T18:11:23.501963768Z"
+    created: "2021-11-03T18:13:23.371507988Z"
     description: Deploy minio
-    digest: 9febf08d13ca7ab706c9c383387e1b2be4d68582142c0b5d4172eed77981bbef
+    digest: ec67a8edd7106d2f2ffce0629620bed5c7274e51c4019fcc1bba960c0855af64
     name: minio
     type: application
     urls:
     - https://github.com/lightcode/ip42-helm-charts/releases/download/minio-1.0.0/minio-1.0.0.tgz
     version: 1.0.0
-generated: "2021-11-03T18:11:23.364887739Z"
+  webapp:
+  - apiVersion: v2
+    created: "2021-11-03T18:13:23.489184268Z"
+    description: A Helm chart for Kubernetes
+    digest: 58887af49e675a8e6c3ff5d91cd4228a0cda4892f43cad2678a5ac22a3a70ac5
+    name: webapp
+    type: application
+    urls:
+    - https://github.com/lightcode/ip42-helm-charts/releases/download/webapp-0.9.0/webapp-0.9.0.tgz
+    version: 0.9.0
+generated: "2021-11-03T18:13:23.216754968Z"
