@@ -10,4 +10,14 @@ entries:
     urls:
     - https://github.com/lightcode/ip42-helm-charts/releases/download/minio-1.0.0/minio-1.0.0.tgz
     version: 1.0.0
+  webapp:
+  - apiVersion: v2
+    created: "2023-07-09T16:47:50.531216493Z"
+    description: A Helm chart for Kubernetes
+    digest: 04bc0bc0dcd797a78c23f6f70acdddc60d88e6c67a89d8ed2cdaa91d335fa5e9
+    name: webapp
+    type: application
+    urls:
+    - https://github.com/lightcode/ip42-helm-charts/releases/download/webapp-0.10.0/webapp-0.10.0.tgz
+    version: 0.10.0
 generated: "2021-11-03T18:11:23.364887739Z"
