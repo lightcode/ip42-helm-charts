@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   minio:
   - apiVersion: v2
+    created: "2023-07-09T16:56:00.554115111Z"
+    description: Deploy minio
+    digest: d50b353dd149871cdac140fd354301972b1083bdaebcb462622137417655732b
+    name: minio
+    type: application
+    urls:
+    - https://github.com/lightcode/ip42-helm-charts/releases/download/minio-1.1.0/minio-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     created: "2021-11-03T18:11:23.501963768Z"
     description: Deploy minio
     digest: 9febf08d13ca7ab706c9c383387e1b2be4d68582142c0b5d4172eed77981bbef
