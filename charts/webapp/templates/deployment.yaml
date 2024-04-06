@@ -104,10 +104,16 @@ spec:
             {{- range $name, $prop := .Values.volumes }}
             - name: {{ $name }}
               mountPath: {{ $prop.mountPath }}
+              {{- with $prop.readOnly }}
+              readOnly: {{ .  }}
+              {{- end }}
             {{- end }}
             {{- range $name, $prop := .Values.hostPath }}
             - name: {{ $name }}
               mountPath: {{ $prop.mountPath }}
+              {{- with $prop.readOnly }}
+              readOnly: {{ . }}
+              {{- end }}
             {{- end }}
           {{- end }}
       {{- if or .Values.volumes .Values.tmpfs .Values.hostPath }}

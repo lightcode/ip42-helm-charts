@@ -67,6 +67,7 @@ readinessProbe:
 volumes: {}
   # <vol-name>
   #   mountPath: /path/in/the/container
+  #   readOnly: true
 
 # List of temporary folders
 tmpfs: {}
@@ -78,6 +79,7 @@ hostPath: {}
   # <vol-name>:
   #   mountPath: /path/in/the/container
   #   path: /path/on/the/host
+  #   readOnly: true
 
 service:
   type: ClusterIP
